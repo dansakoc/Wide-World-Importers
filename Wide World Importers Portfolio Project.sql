@@ -31,7 +31,7 @@ From [Sales].[OrderLines]
 
 
 
---- Check for missing data in the column PickingCompletedWhen
+---  Count missing data in PickingCompletedWhen column
 
 Select count(PickingCompletedWhen)
 From [Sales].[OrderLines]
@@ -42,7 +42,7 @@ From [Sales].[OrderLines]
 
 
 
---- Select maximujm quantity order 
+--- Select maximum quantity order 
 Select min(Quantity) AS minquantity
 From [Sales].[OrderLines]
 
@@ -61,7 +61,7 @@ From [Sales].[InvoiceLines]
 
 
 
---- Average pprofit
+--- Average profit
 
 Select AVG(LineProfit) AS AverageProfit
 From [Sales].[InvoiceLines]
@@ -77,7 +77,7 @@ order by  TotalProduct DESC
 
 
 
---- Select the product  Developer 
+--- Select the product with the name Developer
 
 Select Description, Quantity,UnitPrice, LineProfit
 From [Sales].[InvoiceLines]
@@ -99,7 +99,7 @@ Order by totalquantity DESC
 
 
 
---- Average quatity ordered in 2013
+--- Average quantity ordered in 2013
 
 with data1 AS (Select so.CustomerID, sc.CustomerName,count(Quantity) as totalquantity
 From [Sales].[Orders] as so
@@ -113,7 +113,7 @@ Group by so.CustomerID, sc.CustomerName)
 Select  Avg(totalquantity) as Avgquantity
 from data1
 
---- rank the company by profit inn 2013
+--- Rank the company by profit in 2013
 
 Select so.CustomerID, sc.CustomerName ,sum(sil.LineProfit) as totalprofit,
 dense_rank()Over (partition by so.CustomerID Order by sil.LineProfit) as Custprofit
@@ -147,8 +147,7 @@ On si.invoiceID = sil.InvoiceID
 
 
 
--- Show the product with highest profit overall
-
+-- Show the product with the highest profit among all products
 Select Description, LineProfit,
 First_value(LineProfit)Over (order by LineProfit DESC) as highestprofit
 From [Sales].[InvoiceLines]
@@ -257,7 +256,7 @@ where OrderDate in ('2016')
 
 
 
---- Use case when to group the price in category
+--- Use Case When to group the price in category
 
 Select so.CustomerID, sc.CustomerName ,sil.Description,  so.OrderDate,  sil.Quantity , sil.UnitPrice ,  (sil.Quantity *  sil.UnitPrice ) as totalsales,
 case when sil.Quantity *  sil.UnitPrice > 10000 then 'higher Sales'
@@ -279,7 +278,7 @@ Order by totalsales DESC
 
 
 
---- Create view
+--- Create View
 
 Create View pricecategory as 
 Select so.CustomerID, sc.CustomerName ,sil.Description,  so.OrderDate,  sil.Quantity , sil.UnitPrice ,  (sil.Quantity *  sil.UnitPrice ) as totalsales,
