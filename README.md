@@ -1,4 +1,5 @@
 # SQL Exploratory Data Analysis
+![](Importers image.jpg)
 ## Introduction
 This project is an exploratory data analysis with SQL. The data used to do the analysis is based on data imported form the Wide Worlds Importers. I used 5 tables to explore the data for this exercise. We used the data to determine the total sales, the variation of profit and analyze the profit margin ratio.
 
